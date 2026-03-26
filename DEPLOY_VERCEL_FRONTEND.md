@@ -82,6 +82,7 @@ Follow the prompts and accept defaults.
 ## Step 3: Update Backend URL
 
 Your frontend will be deployed to something like:
+
 ```
 https://esp32-vitals-dashboard.vercel.app
 ```
@@ -93,16 +94,21 @@ Once you deploy the backend (see DEPLOY_RENDER_BACKEND.md), update your frontend
 **File:** `frontend/src/App.jsx` (line ~21)
 
 Change:
+
 ```javascript
-const response = await fetch('http://localhost:4000/api/vitals');
+const response = await fetch("http://localhost:4000/api/vitals");
 ```
 
 To:
+
 ```javascript
-const response = await fetch('https://your-backend-url.onrender.com/api/vitals');
+const response = await fetch(
+  "https://your-backend-url.onrender.com/api/vitals",
+);
 ```
 
 Then redeploy:
+
 ```powershell
 cd d:\qqqq
 git add .
@@ -127,6 +133,7 @@ If you want to use environment variables:
    ```
 
 Then update App.jsx:
+
 ```javascript
 const response = await fetch(`${import.meta.env.VITE_API_URL}/api/vitals`);
 ```
@@ -136,6 +143,7 @@ const response = await fetch(`${import.meta.env.VITE_API_URL}/api/vitals`);
 ## ✅ Your Frontend is Live!
 
 After deployment, you'll get a URL like:
+
 ```
 https://esp32-vitals-dashboard.vercel.app
 ```
@@ -157,15 +165,18 @@ Upload to ESP32 and it will send data to your hosted backend!
 ## 🔧 Troubleshooting
 
 ### "Build failed" error
+
 - Check `frontend/package.json` has correct scripts
 - Ensure Vercel is set to root dir: `frontend`
 - Check for TypeScript errors: `npm run build` locally first
 
 ### CORS errors
+
 - These will be fixed once backend is deployed
 - Frontend needs backend URL to be correct
 
 ### Blank dashboard
+
 - Check browser console (F12) for errors
 - Verify backend URL is correct in App.jsx
 - Ensure backend is running and accessible
@@ -175,6 +186,7 @@ Upload to ESP32 and it will send data to your hosted backend!
 ## 📝 Vercel Dashboard
 
 After deployment, you can:
+
 - View logs: **Deployments → Current → Logs**
 - See analytics: **Analytics tab**
 - Configure domains: **Settings → Domains**
@@ -185,6 +197,7 @@ After deployment, you can:
 ## 🎯 Your Live URLs
 
 After both deployments:
+
 - **Frontend:** `https://esp32-vitals-dashboard.vercel.app`
 - **Backend:** `https://your-backend-url.onrender.com`
 - **ESP32:** Connects to backend, displays on frontend

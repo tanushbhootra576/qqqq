@@ -3,13 +3,38 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
     <title>Vitals Dashboard</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+        }
+
+        /* Mobile first: 320px and up */
+        @media (max-width: 639px) {
+            html {
+                font-size: 14px;
+            }
+        }
+
+        /* Tablet: 640px and up */
+        @media (min-width: 640px) {
+            html {
+                font-size: 15px;
+            }
+        }
+
+        /* Desktop: 1024px and up */
+        @media (min-width: 1024px) {
+            html {
+                font-size: 16px;
+            }
         }
 
         body {
@@ -19,6 +44,128 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             background-color: #f5f5f5;
+            line-height: 1.5;
+        }
+
+        /* Ensure proper styling for the root element */
+        #root {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* Improve touch target sizes for mobile */
+        @media (max-width: 639px) {
+
+            button,
+            a {
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
+
+        /* Improve readability on smaller screens */
+        @media (max-width: 639px) {
+            body {
+                letter-spacing: 0.3px;
+            }
+        }
+
+        /* Animations for dynamic dashboard */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(231, 76, 60, 0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+
+        .slide-in-animation {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .fade-in-animation {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .scale-up-animation {
+            animation: scaleUp 0.3s ease-out;
+        }
+
+        .bounce-animation {
+            animation: bounce 0.5s ease-in-out;
+        }
+
+        /* Smooth transitions for all interactive elements */
+        button,
+        a,
+        [role="button"] {
+            transition: all 0.2s ease;
+        }
+
+        /* Smooth color transitions */
+        .metric-card {
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
     </style>
 </head>

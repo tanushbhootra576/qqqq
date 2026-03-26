@@ -1,12 +1,74 @@
-node_modules/
-.DS_Store
+# Environment variables
 .env
 .env.local
+.env.*.local
+.env.development
+.env.production
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build outputs
 dist/
 build/
-*.log
-npm-debug.log*
-yarn-error.log*
-.vite/
-.idea/
+out/
+.next/
+*.tsbuildinfo
+
+# IDE and Editor
 .vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+*.iml
+
+# OS specific
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.parcel-cache
+.nuxt
+coverage/
+.nyc_output/
+
+# Arduino build artifacts
+*.o
+*.elf
+*.hex
+build/
+
+# Vite specific
+.vite/
+
+# IDEs
+.vscode/
+.idea/
+
