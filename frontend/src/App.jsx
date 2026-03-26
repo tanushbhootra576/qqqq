@@ -582,7 +582,7 @@ function DoctorDashboard({ onBack }) {
                     </div>
                     <div style={styles.metricUnit}>BPM</div>
                     <div style={{ fontSize: '11px', color: '#999', marginTop: '8px' }}>
-                        {vitalsTrend.heartRate === 'up' ? <><UpArrowIcon size={14} color=\"#27ae60\" /> Increasing</> : vitalsTrend.heartRate === 'down' ? <><DownArrowIcon size={14} color=\"#e74c3c\" /> Decreasing</> : <><StableIcon size={14} color=\"#3498db\" /> Stable</>}
+                        {vitalsTrend.heartRate === 'up' ? <><UpArrowIcon size={14} color="#27ae60" /> Increasing</> : vitalsTrend.heartRate === 'down' ? <><DownArrowIcon size={14} color="#e74c3c" /> Decreasing</> : <><StableIcon size={14} color="#3498db" /> Stable</>}
                     </div>
                 </div>
 
@@ -591,7 +591,7 @@ function DoctorDashboard({ onBack }) {
                     borderColor: getMetricColor('spO2', vitals.spO2),
                     boxShadow: `0 2px 8px ${getMetricColor('spO2', vitals.spO2)}30`,
                 }}>
-                    <div style={styles.metricLabel}><LungsIcon size={18} color=\"#27ae60\" /> Oxygen Saturation</div>
+                    <div style={styles.metricLabel}><LungsIcon size={18} color="#27ae60" /> Oxygen Saturation</div>
                     <div style={{
                         ...styles.metricValue,
                         color: getMetricColor('spO2', vitals.spO2),
