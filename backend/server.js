@@ -117,6 +117,7 @@ async function initializeDatabase() {
 // POST endpoint - Receive vitals from ESP32
 app.post('/api/vitals', async (req, res) => {
     const { heartRate, spO2, temperature, lat, lng } = req.body;
+    console.log(`[${new Date().toLocaleTimeString()}] Received vitals:`, req.body);
 
     // Validate incoming data
     if (heartRate === undefined || spO2 === undefined || temperature === undefined || lat === undefined || lng === undefined) {
@@ -161,6 +162,7 @@ app.post('/api/vitals', async (req, res) => {
 
 // GET endpoint - Return latest vitals
 app.get('/api/vitals', async (req, res) => {
+    console.log(`[${new Date().toLocaleTimeString()}] GET /api/vitals called`);
     try {
         const sensorPatient = await Patient.findOne({ isSensorPatient: true });
         if (sensorPatient) {
@@ -176,17 +178,20 @@ app.get('/api/vitals', async (req, res) => {
 
 // GET endpoint - Get all patients
 app.get('/api/patients', async (req, res) => {
+    console.log(`[${new Date().toLocaleTimeString()}] GET /api/patients called`);
     try {
         const patients = await Patient.find();
         res.json(patients);
     } catch (err) {
         console.error('Error fetching patients:', err);
-        res.status(500).json({ error: 'Error fetching patients' });
+        console.log('Error fetching patients:', err);
+        res.status(500).json({ error: 'Error fetching patients  klmklkk' });
     }
 });
 
-// GET endpoint - Get specific patient
+// GET endpoint - Get specific patientsss
 app.get('/api/patients/:patientId', async (req, res) => {
+    console.log(`[${new Date().toLocaleTimeString()}] GET /api/patients/${req.params.patientId} called`);
     try {
         const patient = await Patient.findOne({ patientId: parseInt(req.params.patientId) });
         if (patient) {
