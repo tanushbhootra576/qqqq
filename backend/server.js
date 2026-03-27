@@ -166,13 +166,22 @@ app.get('/api/vitals', async (req, res) => {
     try {
         const sensorPatient = await Patient.findOne({ isSensorPatient: true });
         if (sensorPatient) {
-            res.json(sensorPatient.latestVitals);
+            // Return only the vital properties directly as the frontend expects
+            res.json({
+                heartRate: sensorPatient.latestVitals?.heartRate || 0,
+                spO2: sensorPatient.latestVitals?.spO2 || 0,
+                temperature: sensorPatient.latestVitals?.temperature || 0,
+                lat: sensorPatient.latestVitals?.lat || 0,
+                lng: sensorPatient.latestVitals?.lng || 0,
+                timestamp: sensorPatient.latestVitals?.timestamp || new Date()
+            });
         } else {
+            console.error('Sensor patient not found in database');
             res.status(404).json({ error: 'Sensor patient not found' });
         }
     } catch (err) {
         console.error('Error fetching vitals:', err);
-        res.status(500).json({ error: 'Error fetching vitals' });
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
@@ -184,24 +193,29 @@ app.get('/api/patients', async (req, res) => {
         res.json(patients);
     } catch (err) {
         console.error('Error fetching patients:', err);
-        console.log('Error fetching patients:', err);
-        res.status(500).json({ error: 'Error fetching patients  klmklkk' });
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
-// GET endpoint - Get specific patientsss
+// GET endpoint - Get specific patient
 app.get('/api/patients/:patientId', async (req, res) => {
-    console.log(`[${new Date().toLocaleTimeString()}] GET /api/patients/${req.params.patientId} called`);
+    const { patientId } = req.params;
+    console.log(`[${new Date().toLocaleTimeString()}] GET /api/patients/${patientId} called`);
+    
+    if (isNaN(parseInt(patientId))) {
+        return res.status(400).json({ error: 'Invalid Patient ID format' });
+    }
+
     try {
-        const patient = await Patient.findOne({ patientId: parseInt(req.params.patientId) });
+        const patient = await Patient.findOne({ patientId: parseInt(patientId) });
         if (patient) {
             res.json(patient);
         } else {
             res.status(404).json({ error: 'Patient not found' });
         }
     } catch (err) {
-        console.error('Error fetching patient:', err);
-        res.status(500).json({ error: 'Error fetching patient' });
+        console.error(`Error fetching patient ${patientId}:`, err);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
