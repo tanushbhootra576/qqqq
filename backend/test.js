@@ -1,38 +1,35 @@
-const URL = "https://qqqq-vs3j.onrender.com/api/vitals"; // Switch to your Render URL when deploying
+// Change this to your actual Render URL
+const URL = "https://qqqq-vs3j.onrender.com/api/vitals";
 
-function generateVitals() {
-    return {
-        heartRate: +(65 + Math.random() * 40).toFixed(1), // Matches ESP32 float format
-        spO2: +(94 + Math.random() * 6).toFixed(1),
-        temperature: 36.5, // Matches ESP32 hardcoded value
+async function sendVitals() {
+    const data = {
+        heartRate: +(70 + Math.random() * 30).toFixed(1),
+        spO2: +(95 + Math.random() * 5).toFixed(1),
+        temperature: 36.5,
         lat: 1.3521,
         lng: 103.8198
     };
-}
 
-async function sendVitals() {
-    const data = generateVitals();
-    console.log("⏳ Sending payload...", data);
-    console.log("the url is ", URL);
+    console.log("⏳ Pushing to:", URL);
 
     try {
         const response = await fetch(URL, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
         });
 
         const result = await response.json();
-        console.log("✅ Server Response:", result);
-        console.log("the url is ", URL);
-        console.log("--------------------------------------------------");
+        if (response.ok) {
+            console.log("✅ Success:", result);
+        } else {
+            console.log("⚠️ Server rejected data:", result);
+        }
     } catch (error) {
-        console.error("❌ Error connecting to server:", error.message);
+        console.error("❌ Network/Fetch Error:", error.message);
     }
+    console.log("--------------------------------------------------");
 }
 
-// Run immediately, then every 3 seconds
-sendVitals();
 setInterval(sendVitals, 3000);
+sendVitals();
