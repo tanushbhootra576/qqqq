@@ -1,5 +1,7 @@
 // Change this to your actual Render URL
-const URL = "https://qqqq-vs3j.onrender.com/api/vitals";
+const URL = "https://qqqq-yiqg.onrender.com/api/vitals";
+
+// const URL = "http://localhost:5000/api/vitals";
 
 async function sendVitals() {
     const data = {
