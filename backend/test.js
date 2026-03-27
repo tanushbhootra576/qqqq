@@ -1,4 +1,4 @@
-const URL = "http://localhost:5000/api/vitals"; // Switch to your Render URL when deploying
+const URL = "https://qqqq-vs3j.onrender.com/api/vitals"; // Switch to your Render URL when deploying
 
 function generateVitals() {
     return {
@@ -13,6 +13,7 @@ function generateVitals() {
 async function sendVitals() {
     const data = generateVitals();
     console.log("⏳ Sending payload...", data);
+    console.log("the url is ", URL);
 
     try {
         const response = await fetch(URL, {
@@ -25,6 +26,7 @@ async function sendVitals() {
 
         const result = await response.json();
         console.log("✅ Server Response:", result);
+        console.log("the url is ", URL);
         console.log("--------------------------------------------------");
     } catch (error) {
         console.error("❌ Error connecting to server:", error.message);
