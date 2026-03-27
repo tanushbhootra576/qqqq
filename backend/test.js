@@ -1,10 +1,10 @@
-const URL = "https://qqqq-yiqg.onrender.com/api/vitals";
+const URL = "http://localhost:5000/api/vitals"; // Switch to your Render URL when deploying
 
 function generateVitals() {
     return {
-        heartRate: Math.floor(65 + Math.random() * 40),
-        spO2: Math.floor(94 + Math.random() * 6),
-        temperature: +(36 + Math.random() * 2).toFixed(1),
+        heartRate: +(65 + Math.random() * 40).toFixed(1), // Matches ESP32 float format
+        spO2: +(94 + Math.random() * 6).toFixed(1),
+        temperature: 36.5, // Matches ESP32 hardcoded value
         lat: 1.3521,
         lng: 103.8198
     };
@@ -12,8 +12,7 @@ function generateVitals() {
 
 async function sendVitals() {
     const data = generateVitals();
-
-    console.log("⏳ Sending...", data); // IMPORTANT DEBUG LINE
+    console.log("⏳ Sending payload...", data);
 
     try {
         const response = await fetch(URL, {
@@ -25,17 +24,13 @@ async function sendVitals() {
         });
 
         const result = await response.json();
-
-        console.log("✅ Response:", result);
+        console.log("✅ Server Response:", result);
         console.log("--------------------------------------------------");
-
     } catch (error) {
-        console.error("❌ Error:", error.message);
+        console.error("❌ Error connecting to server:", error.message);
     }
 }
 
-// RUN IT (IMPORTANT)
-setInterval(sendVitals, 3000);
-
-// ALSO CALL ONCE IMMEDIATELY
+// Run immediately, then every 3 seconds
 sendVitals();
+setInterval(sendVitals, 3000);
